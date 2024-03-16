@@ -18,8 +18,8 @@ CREATE TABLE Pitstop_Gerente(
     sobrenome VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     senha VARCHAR(255),
-    fkOficina INT NOT NULL,
     `status` VARCHAR(255) NOT NULL,
+    fkOficina INT NOT NULL,
     FOREIGN KEY (fkOficina) REFERENCES Pitstop_Oficina(idOficina)
 );
 
@@ -63,8 +63,8 @@ CREATE TABLE Pitstop_OrdemDeServico (
     dataInicio DATE NOT NULL,
     dataFim DATE,
     `status` VARCHAR(255) NOT NULL,
-    valorTotal DECIMAL(10, 2) NOT NULL,
     descontos DECIMAL(10, 2),
+    valorTotal DECIMAL(10, 2) NOT NULL,
     token VARCHAR(255) NOT NULL,
     garantia VARCHAR(255),
     observacoes VARCHAR(255),
@@ -78,8 +78,10 @@ CREATE TABLE Pitstop_OrdemDeServico (
 
 CREATE TABLE Pitstop_Servico (
     idServico INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
     descricao VARCHAR(255) NOT NULL,
-    precoServico DECIMAL(10, 2) NOT NULL,
+    valorServico DECIMAL(10, 2) NOT NULL,
+    garantia DECIMAL (10, 2),
     fkOficina INT,
     FOREIGN KEY (fkOficina) REFERENCES Pitstop_Oficina(idOficina)
 );
@@ -87,12 +89,11 @@ CREATE TABLE Pitstop_Servico (
 CREATE TABLE Pitstop_ProdutoEstoque (
     idProduto INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(255) NOT NULL,
-    descricao VARCHAR(255),
     quantidade INT NOT NULL,
+    valorMaoDeObra DECIMAL(10, 2) NOT NULL,
+    valorCompra DECIMAL(10, 2) NOT NULL,
+    valorVenda DECIMAL(10, 2) NOT NULL,
     localizacao VARCHAR(255),
-    precoMaoDeObra DECIMAL(10, 2),
-    precoCompra DECIMAL(10, 2),
-    precoVenda DECIMAL(10, 2),
     garantia VARCHAR(10),
     fkOficina INT,
     FOREIGN KEY (fkOficina) REFERENCES Pitstop_Oficina(idOficina)
@@ -114,7 +115,6 @@ CREATE TABLE Pitstop_Tarefa (
     idTarefa INT PRIMARY KEY AUTO_INCREMENT,
     descricao VARCHAR(255) NOT NULL,
     dtDeadLine DATE,
-    prioridade VARCHAR(255),
     `status` VARCHAR(255) NOT NULL,
     fkOficina INT NOT NULL,
     FOREIGN KEY (fkOficina) REFERENCES Pitstop_Oficina(idOficina)
@@ -151,7 +151,22 @@ CREATE TABLE Buscar_Avaliacao(
 
 CREATE TABLE Buscar_Servico(
     idServico INT PRIMARY KEY AUTO_INCREMENT,
-    descricao VARCHAR(255) NOT NULL,
+    nome VARCHAR(255) NOT NULL,
+    descricao VARCHAR(255),
     fkOficina INT NOT NULL,
     FOREIGN KEY (fkOficina) REFERENCES Pitstop_Oficina(idOficina)
+);
+
+CREATE TABLE Bucar_Marcas(
+	idMarca INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
+    fkOficina INT NOT NULL,
+    FOREIGN KEY (fkOficina) REFERENCES Pitstop_Oficina (idOficina)
+);
+
+CREATE TABLE Bucar_Preferencias(
+	idPrefencia INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
+    fkOficina INT NOT NULL,
+    FOREIGN KEY (fkOficina) REFERENCES Pitstop_Oficina (idOficina)
 );
