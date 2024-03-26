@@ -157,16 +157,28 @@ CREATE TABLE Buscar_Servico(
     FOREIGN KEY (fkOficina) REFERENCES Pitstop_Oficina(idOficina)
 );
 
-CREATE TABLE Bucar_Marcas(
-	idMarca INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255) NOT NULL,
-    fkOficina INT NOT NULL,
+CREATE TABLE Buscar_Marca(
+	idMarca INT PRIMARY KEY AUTO_INCREMENT
+);
+
+CREATE TABLE Buscar_MarcaOficina(
+	fkMarca INT,
+    fkOficina  INT,
+    PRIMARY KEY (fkMarca, fkOficina),
+    FOREIGN KEY (fkMarca) REFERENCES Buscar_Marca (idMarca),
     FOREIGN KEY (fkOficina) REFERENCES Pitstop_Oficina (idOficina)
 );
 
-CREATE TABLE Bucar_Preferencias(
-	idPrefencia INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255) NOT NULL,
-    fkOficina INT NOT NULL,
+CREATE TABLE Buscar_Tp_veiculo(
+	idTipo INT PRIMARY KEY AUTO_INCREMENT,
+    tipoVeiculo VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE Buscar_tpVeiculoOficina(
+	fkTpVeiculo INT,
+    fkOficina  INT,
+    PRIMARY KEY (fkTpVeiculo, fkOficina),
+    FOREIGN KEY (fkTpVeiculo) REFERENCES Buscar_Tp_Veiculo (idTipo),
     FOREIGN KEY (fkOficina) REFERENCES Pitstop_Oficina (idOficina)
 );
